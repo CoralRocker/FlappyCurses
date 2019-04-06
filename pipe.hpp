@@ -2,13 +2,14 @@
 #define PIPE_H
 
 #include <ncurses.h>
+#include "bird.hpp"
 
 class pipe
 {
 	public:
 		pipe(WINDOW* win, int width, int height);
 		void setPos(int x, int y, int size);
-		bool birdIn(int x, int y);
+		bool birdIn(bird b);
 		void increment();
 		void drawPipe();
 		int getX();

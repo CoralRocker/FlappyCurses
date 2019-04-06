@@ -32,7 +32,8 @@ signed char getOff(int height)
 int main()
 {
 	WINDOW* stdscr = initWindow();
-
+	char* inoutbuf = (char*)malloc(64);
+	int score = 0;
 	int height, width;
 	getmaxyx(stdscr, height, width); 
 	bird player(stdscr, '@', 10);	
@@ -60,6 +61,14 @@ int main()
 		}	
 		if(pipes.size() < 1)
 			break;
+		if(pipes[0].birdIn(player))
+			sprintf(inoutbuf, "in ");
+		else
+			sprintf(inoutbuf, "out ");
+		if(pipes[0].birdIn(player))
+			score++;
+		else
+			break;
 		player.draw();
 		int ch = getch();
 		if(ch == KEY_UP)
@@ -69,4 +78,6 @@ int main()
 			break;
 	}
 	endwin();
+	printf("%s\n", inoutbuf);
+	free(inoutbuf);
 }
