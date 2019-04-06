@@ -36,17 +36,18 @@ int main()
 	int height, width;
 	getmaxyx(stdscr, height, width); 
 	bird player(stdscr, '@', 10);	
-	//std::vector<pipe> pipes;
-	//for(int i = 0; i < 5; i++)
-	//{
-	//	pipes.push_back(pipe(stdscr, width, height));	
-	//	pipes[i].setPos(width + (45*i), getOff(height), 4);
-	//}
+	std::vector<pipe> pipes;
+	for(int i = 0; i < 5; i++)
+	{
+		pipes.push_back(pipe(stdscr, width, height));	
+		pipes[i].setPos(width + (45*i), getOff(height), 4);
+	}
 	while(true)
 	{
-		clear();
+	//	clear();
+		erase();
 		int i = 0;
-		/*for(i = 0; i < pipes.size(); i++)
+		for(i = 0; i < pipes.size(); i++)
 		{
 			pipes[i].drawPipe();
 			pipes[i].increment();
@@ -59,7 +60,6 @@ int main()
 		}	
 		if(pipes.size() < 1)
 			break;
-		*/
 		player.draw();
 		int ch = getch();
 		if(ch == KEY_UP)

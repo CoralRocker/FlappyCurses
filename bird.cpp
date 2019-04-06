@@ -24,5 +24,5 @@ void bird::act()
 }
 void bird::jump()
 {
-	this->dir = -10;
+	this->dir = -8;
 }
