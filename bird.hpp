@@ -9,7 +9,7 @@ class bird
 		WINDOW* win;
 		char symbol;
 	public:
-		int y, x, gravity, dir;
+		signed int y, x, gravity, dir;
 		bird(WINDOW* win, char symbol, int x);
 		void draw();
 		void act();

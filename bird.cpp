@@ -8,7 +8,7 @@ bird::bird(WINDOW* win, char symbol, int x)
 	getmaxyx(win, this->y, this->x);
 	this->x = x;
 	this->y /= 2;
-	this->gravity = -5;
+	this->gravity = 1;
 	this->dir = gravity;
 };
 
@@ -19,10 +19,10 @@ void bird::draw()
 
 void bird::act()
 {
-	this->y -= this->dir/5;
-	this->dir -= this->gravity/2;	
+	this->y += dir/5;
+	this->dir += gravity;
 }
 void bird::jump()
 {
-	this->dir = 35;
+	this->dir = -10;
 }
