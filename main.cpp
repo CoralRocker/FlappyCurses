@@ -65,7 +65,7 @@ int main()
 			sprintf(inoutbuf, "in ");
 		else
 			sprintf(inoutbuf, "out ");
-		if(pipes[0].birdIn(player))
+		if(pipes[0].getX() > player.x && pipes[0].birdIn(player))//pipes[0].birdIn(player))
 			score++;
 		else
 			break;
@@ -80,4 +80,5 @@ int main()
 	endwin();
 	printf("%s\n", inoutbuf);
 	free(inoutbuf);
+	printf("%d\n", score);
 }
