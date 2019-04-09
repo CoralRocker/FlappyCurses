@@ -70,7 +70,7 @@ int main()
 				score++;
 				pipes[0].passed = true;
 			}
-			else if(!pipes[0].passed && pipes[0].birdIn(player) == 'o');
+			//else if(!pipes[0].passed && pipes[0].birdIn(player) == 'o');
 				break;
 		}
 		player.draw();

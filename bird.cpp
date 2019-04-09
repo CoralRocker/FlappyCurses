@@ -21,8 +21,10 @@ void bird::act()
 {
 	this->y += dir/5;
 	this->dir += gravity;
+	if(dir >= -2 && dir <= 0)
+		this->dir = gravity;
 }
 void bird::jump()
 {
-	this->dir = -8;
+	this->dir += -8;
 }
