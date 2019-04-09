@@ -5,6 +5,7 @@
 #include <vector>
 #include "pipe.hpp"
 #include "bird.hpp"
+#include <string.h>
 
 WINDOW* initWindow()
 {
@@ -46,7 +47,6 @@ int main()
 	}
 	while(true)
 	{
-	//	clear();
 		erase();
 		int i = 0;
 		for(i = 0; i < pipes.size(); i++)
@@ -69,10 +69,11 @@ int main()
 			{
 				score++;
 				pipes[0].passed = true;
+				sprintf(inoutbuf + strlen(inoutbuf), "in  pipe\t");
 			}
-			//else if(!pipes[0].passed && pipes[0].birdIn(player) == 'o');
-				break;
-		}
+			else if(pipes[0].birdIn(player) == 'o');
+				sprintf(inoutbuf + strlen(inoutbuf), "hit pipe\t");
+		}	
 		player.draw();
 		int ch = getch();
 		if(ch == KEY_UP)
