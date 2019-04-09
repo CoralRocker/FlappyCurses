@@ -42,6 +42,7 @@ int main()
 	{
 		pipes.push_back(pipe(stdscr, width, height));	
 		pipes[i].setPos(width + (45*i), getOff(height), 4);
+		pipes[i].passed = false;
 	}
 	while(true)
 	{
@@ -57,18 +58,21 @@ int main()
 				pipes.erase(pipes.begin()+i);
 				pipes.push_back(pipe(stdscr, width, height));
 				pipes.back().setPos(width + 5, getOff(height), 4);
+				pipes.back().passed = false;
 			}
 		}	
 		if(pipes.size() < 1)
 			break;
-		if(pipes[0].birdIn(player))
-			sprintf(inoutbuf, "in ");
-		else
-			sprintf(inoutbuf, "out ");
-		if(pipes[0].getX() > player.x && pipes[0].birdIn(player))//pipes[0].birdIn(player))
-			score++;
-		else
-			break;
+		if(pipes[0].getX() <= player.x && pipes[0].getX() + 5 >= player.x)
+		{
+			if(pipes[0].birdIn(player) == 'i' && !pipes[0].passed)//pipes[0].birdIn(player))
+			{
+				score++;
+				pipes[0].passed = true;
+			}
+			else if(!pipes[0].passed && pipes[0].birdIn(player) == 'o');
+				break;
+		}
 		player.draw();
 		int ch = getch();
 		if(ch == KEY_UP)

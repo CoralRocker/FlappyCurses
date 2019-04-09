@@ -9,12 +9,13 @@ pipe::pipe(WINDOW* win, int width, int height)
 	this->height = height;
 };
 
-bool pipe::birdIn(bird b)
+char pipe::birdIn(bird b)
 {
-	if((b.y >= this->y + 5 || b.y <= this->y - 5) &&
+	if((b.y <= this->y + 5 || b.y >= this->y - 5) &&
 	   (b.x >= this->x && b.x <= this->x + this->size))
-		return false;
-	return true;	
+		return 'i';
+	else
+		return 'o';
 }
 
 void pipe::setPos(int x, int y, int size)

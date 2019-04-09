@@ -9,10 +9,11 @@ class pipe
 	public:
 		pipe(WINDOW* win, int width, int height);
 		void setPos(int x, int y, int size);
-		bool birdIn(bird b);
+		char birdIn(bird b);
 		void increment();
 		void drawPipe();
 		int getX();
+		bool passed;
 	private:
 		int x, y, size, width, height;
 		WINDOW* win;
