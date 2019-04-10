@@ -63,16 +63,17 @@ int main()
 		}	
 		if(pipes.size() < 1)
 			break;
-		if(pipes[0].getX() <= player.x && pipes[0].getX() + 5 >= player.x)
+		if(pipes[0].getX() <= player.x && pipes[0].getX() + 4 >= player.x)
 		{
-			if(pipes[0].birdIn(player) == 'i' && !pipes[0].passed)//pipes[0].birdIn(player))
+			if(pipes[0].birdIn(player) && !pipes[0].passed)//pipes[0].birdIn(player))
 			{
 				score++;
 				pipes[0].passed = true;
-				sprintf(inoutbuf + strlen(inoutbuf), "in  pipe\t");
+			///	sprintf(inoutbuf + strlen(inoutbuf), "in  pipe\t");
 			}
-			else if(pipes[0].birdIn(player) == 'o');
-				sprintf(inoutbuf + strlen(inoutbuf), "hit pipe\t");
+			else if(!pipes[0].birdIn(player))
+				break;
+				//	sprintf(inoutbuf + strlen(inoutbuf), "hit pipe\t");
 		}	
 		player.draw();
 		int ch = getch();
