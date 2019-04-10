@@ -55,7 +55,7 @@ int main()
 	while(true)
 	{
 		erase();
-
+		timeout(50 - score);
 		/* Modifify Pipes Appropriately */
 		for(int i = 0; i < pipes.size(); i++)
 		{
