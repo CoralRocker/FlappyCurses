@@ -11,7 +11,7 @@ pipe::pipe(WINDOW* win, int width, int height)
 
 char pipe::birdIn(bird b)
 {
-	if(b.y <= this->y + 5 && b.y >= this->y - 5)
+	if(b.y <= this->y + 4 && b.y >= this->y - 5)
 		return 1;
 	else
 		return 0;
