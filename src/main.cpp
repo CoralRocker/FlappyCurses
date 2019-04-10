@@ -32,11 +32,16 @@ signed char getOff(int height)
 
 int main()
 {
+	/* Initialize Window */
 	WINDOW* stdscr = initWindow();
+
+	/* Variables */
 	char* inoutbuf = (char*)malloc(64);
 	int score = 0;
 	int height, width;
-	getmaxyx(stdscr, height, width); 
+	getmaxyx(stdscr, height, width);
+
+	/* Player And Pipes */
 	bird player(stdscr, '@', 10);	
 	std::vector<pipe> pipes;
 	for(int i = 0; i < 5; i++)
@@ -45,24 +50,32 @@ int main()
 		pipes[i].setPos(width + (45*i), getOff(height), 4);
 		pipes[i].passed = false;
 	}
+
+	/* Game Loop */
 	while(true)
 	{
 		erase();
-		int i = 0;
-		for(i = 0; i < pipes.size(); i++)
+
+		/* Modifify Pipes Appropriately */
+		for(int i = 0; i < pipes.size(); i++)
 		{
 			pipes[i].drawPipe();
 			pipes[i].increment();
 			if(pipes[i].getX() < 0)
 			{
+				//delete(pipes[i]);
 				pipes.erase(pipes.begin()+i);
 				pipes.push_back(pipe(stdscr, width, height));
 				pipes.back().setPos(width + 5, getOff(height), 4);
 				pipes.back().passed = false;
 			}
 		}	
+
+		/* If pipes are malfunctioning, exit */
 		if(pipes.size() < 1)
 			break;
+
+		/* Check If Player Is Hitting Pipe */
 		if(pipes[0].getX() <= player.x && pipes[0].getX() + 4 >= player.x)
 		{
 			if(pipes[0].birdIn(player) && !pipes[0].passed)//pipes[0].birdIn(player))
@@ -75,7 +88,11 @@ int main()
 				break;
 			}	
 		}
+
+		/* Draw Bird */
 		player.draw();
+
+		/* Get Next Move */
 		int ch = getch();
 		if(ch == KEY_UP)
 			player.jump();
@@ -84,7 +101,5 @@ int main()
 			break;
 	}
 	endwin();
-	printf("%s\n", inoutbuf);
 	free(inoutbuf);
-	printf("%d\n", score);
 }
