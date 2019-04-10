@@ -57,8 +57,7 @@ MENURUN:
 			break;
 		case 2:
 			endwin();
-			return 0;
-			break;
+			return -1;
 		default:
 			printf("Encountered Error In Menu.\n");
 			endwin();
