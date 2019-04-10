@@ -56,10 +56,12 @@ MENURUN:
 			speed = 50;
 			break;
 		case 2:
-			startMenu.~menu();
-			return -1;
+			endwin();
+			return 0;
+			break;
 		default:
 			printf("Encountered Error In Menu.\n");
+			endwin();
 			return -1;
 	}
 
