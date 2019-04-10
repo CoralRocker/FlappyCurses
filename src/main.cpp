@@ -44,7 +44,7 @@ int main()
 
 	/* Menu */
 	menu startMenu(stdscr);
-	startMenu.setOpts(3, "Easy", "Medium", "Quit");
+	startMenu.setOpts(4, "Easy", "Medium", "Hard", "Quit");
 MENURUN:
 	char choice = startMenu.runMenu();
 	switch(choice)
@@ -56,6 +56,9 @@ MENURUN:
 			speed = 50;
 			break;
 		case 2:
+			speed = 30;
+			break;
+		case 3:
 			endwin();
 			return -1;
 		default:
