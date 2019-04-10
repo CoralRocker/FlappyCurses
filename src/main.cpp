@@ -16,7 +16,7 @@ WINDOW* initWindow()
 	noecho();
 	cbreak();
 	curs_set(0);
-	timeout(75);
+	timeout(50);
 	border(0, 0, 0, 0, 0, 0, 0, 0);
 	start_color();
 	init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -69,12 +69,12 @@ int main()
 			{
 				score++;
 				pipes[0].passed = true;
-			///	sprintf(inoutbuf + strlen(inoutbuf), "in  pipe\t");
 			}
 			else if(!pipes[0].birdIn(player))
+			{
 				break;
-				//	sprintf(inoutbuf + strlen(inoutbuf), "hit pipe\t");
-		}	
+			}	
+		}
 		player.draw();
 		int ch = getch();
 		if(ch == KEY_UP)
