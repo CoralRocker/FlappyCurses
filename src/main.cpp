@@ -42,7 +42,7 @@ int main()
 	getmaxyx(stdscr, height, width);
 
 	/* Player And Pipes */
-	bird player(stdscr, '@', 10);	
+	bird player(stdscr, '@', 20);	
 	std::vector<pipe> pipes;
 	for(int i = 0; i < 5; i++)
 	{
@@ -55,13 +55,13 @@ int main()
 	while(true)
 	{
 		erase();
-		timeout(50 - score);
+		timeout(50 - score*2);
 		/* Modifify Pipes Appropriately */
 		for(int i = 0; i < pipes.size(); i++)
 		{
 			pipes[i].drawPipe();
 			pipes[i].increment();
-			if(pipes[i].getX() < 0)
+			if(pipes[i].getX() < -5)
 			{
 				//delete(pipes[i]);
 				pipes.erase(pipes.begin()+i);
@@ -102,4 +102,5 @@ int main()
 	}
 	endwin();
 	free(inoutbuf);
+	printf("You got: %d\n", score);
 }
