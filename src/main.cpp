@@ -6,6 +6,7 @@
 #include "pipe.hpp"
 #include "bird.hpp"
 #include <string.h>
+#include "menu.hpp"
 
 WINDOW* initWindow()
 {
@@ -36,10 +37,31 @@ int main()
 	WINDOW* stdscr = initWindow();
 
 	/* Variables */
-	char* inoutbuf = (char*)malloc(64);
 	int score = 0;
 	int height, width;
 	getmaxyx(stdscr, height, width);
+	unsigned char speed = 0;
+
+	/* Menu */
+	menu startMenu(stdscr);
+	startMenu.setOpts(3, "Easy", "Medium", "Quit");
+MENURUN:
+	char choice = startMenu.runMenu();
+	switch(choice)
+	{
+		case 0:
+			speed = 100;
+			break;
+		case 1:
+			speed = 50;
+			break;
+		case 2:
+			startMenu.~menu();
+			return -1;
+		default:
+			printf("Encountered Error In Menu.\n");
+			return -1;
+	}
 
 	/* Player And Pipes */
 	bird player(stdscr, '@', 20);	
@@ -55,7 +77,7 @@ int main()
 	while(true)
 	{
 		erase();
-		timeout(50 - score*2);
+		timeout(speed - score*2);
 		/* Modifify Pipes Appropriately */
 		for(int i = 0; i < pipes.size(); i++)
 		{
@@ -101,6 +123,5 @@ int main()
 			break;
 	}
 	endwin();
-	free(inoutbuf);
 	printf("You got: %d\n", score);
 }
