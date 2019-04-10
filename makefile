@@ -1,3 +1,3 @@
-FC.out: main.cpp pipe.cpp bird.cpp
-	g++ -lncurses main.cpp pipe.cpp bird.cpp -o FC.out
+FC.out: src/main.cpp src/pipe.cpp src/bird.cpp
+	g++ -lncurses src/main.cpp src/pipe.cpp src/bird.cpp -o FC.out
 
