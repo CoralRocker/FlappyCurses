@@ -35,8 +35,24 @@ void pipe::drawPipe()
 	{
 		for(int k = this->x; k < this->size + this->x; k++)
 		{
-			if(i >= (this->y + 5) || i <= (this->y - 5))
-				mvwaddch(this->win, i, k, '#'); 
+			if((k == this->x || k == this->size + this->x - 1) && !(i <= this->y + 5 && i >= this->y - 5))
+				mvwaddch(this->win, i, k, ACS_VLINE);
+			if(i == (this->y - 5))
+			{
+				mvwaddch(this->win, i, k, ACS_HLINE);
+				if(k == this->x)
+					mvwaddch(this->win, i, k, ACS_LLCORNER);
+				if(k == this->x + this->size - 1)
+					mvwaddch(this->win, i, k, ACS_LRCORNER);
+			}
+			if(i == (this->y + 5))
+			{
+				mvwaddch(this->win, i, k, ACS_HLINE);
+				if(k == this->x)
+					mvwaddch(this->win, i, k, ACS_ULCORNER);
+				if(k == this->x + this->size - 1)
+					mvwaddch(this->win, i, k, ACS_URCORNER);
+			}
 		}
 	}
 	/*
