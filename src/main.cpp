@@ -7,6 +7,7 @@
 #include "bird.hpp"
 #include <string.h>
 #include "menu.hpp"
+#include <chrono>
 
 WINDOW* initWindow()
 {
@@ -17,7 +18,6 @@ WINDOW* initWindow()
 	noecho();
 	cbreak();
 	curs_set(0);
-	timeout(50);
 	border(0, 0, 0, 0, 0, 0, 0, 0);
 	start_color();
 	init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -76,55 +76,65 @@ MENURUN:
 		pipes[i].setPos(width + (45*i), getOff(height), 4);
 		pipes[i].passed = false;
 	}
-
+	long long start = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
+	long long end = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
+	
 	/* Game Loop */
 	while(true)
 	{
 		erase();
-		timeout(speed - score*2);
-		/* Modifify Pipes Appropriately */
-		for(int i = 0; i < pipes.size(); i++)
+		speed -= 2*score;
+		if(speed < 0)
+			speed = 0;
+		
+		if(end - start >= speed)
 		{
-			pipes[i].drawPipe();
-			pipes[i].increment();
-			if(pipes[i].getX() < -5)
+			/* Modifify Pipes Appropriately */
+			for(int i = 0; i < pipes.size(); i++)
 			{
-				//delete(pipes[i]);
-				pipes.erase(pipes.begin()+i);
-				pipes.push_back(pipe(stdscr, width, height));
-				pipes.back().setPos(width + 5, getOff(height), 4);
-				pipes.back().passed = false;
-			}
-		}	
-
-		/* If pipes are malfunctioning, exit */
-		if(pipes.size() < 1)
-			break;
-
-		/* Check If Player Is Hitting Pipe */
-		if(pipes[0].getX() <= player.x && pipes[0].getX() + 4 >= player.x)
-		{
-			if(pipes[0].birdIn(player) && !pipes[0].passed)//pipes[0].birdIn(player))
-			{
-				score++;
-				pipes[0].passed = true;
-			}
-			else if(!pipes[0].birdIn(player))
-			{
-				break;
+				pipes[i].drawPipe();
+				pipes[i].increment();
+				if(pipes[i].getX() < -5)
+				{
+					//delete(pipes[i]);
+					pipes.erase(pipes.begin()+i);
+					pipes.push_back(pipe(stdscr, width, height));
+					pipes.back().setPos(width + 5, getOff(height), 4);
+					pipes.back().passed = false;
+				}
 			}	
+	
+			/* If pipes are malfunctioning, exit */
+			if(pipes.size() < 1)
+				break;
+	
+			/* Check If Player Is Hitting Pipe */
+			if(pipes[0].getX() <= player.x && pipes[0].getX() + 4 >= player.x)
+			{
+				if(pipes[0].birdIn(player) && !pipes[0].passed)//pipes[0].birdIn(player))
+				{
+					score++;
+					pipes[0].passed = true;
+				}
+				else if(!pipes[0].birdIn(player))
+				{
+					break;
+				}	
+			}
+	
+			/* Draw Bird */
+			player.draw();
+
+			/* Get Next Move */
+			int ch = getch();
+			if(ch == KEY_UP)
+				player.jump();
+			player.act();
+			if(ch == 'q')
+				break;
+			start = end;	
 		}
-
-		/* Draw Bird */
-		player.draw();
-
-		/* Get Next Move */
-		int ch = getch();
-		if(ch == KEY_UP)
-			player.jump();
-		player.act();
-		if(ch == 'q')
-			break;
+		end = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
 	}
 	endwin();
 	printf("You got: %d\n", score);
