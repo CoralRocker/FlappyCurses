@@ -20,6 +20,7 @@ WINDOW* initWindow()
 	noecho();
 	cbreak();
 	curs_set(0);
+//	timeout(25);
 	border(0, 0, 0, 0, 0, 0, 0, 0);
 	start_color();
 	init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -83,7 +84,6 @@ MENURUN:
 	while(true)
 	{
 		erase();
-		speed -= score*2;
 		if(speed <= 0)
 			speed = 0;
 		if(end - start >= speed)
@@ -102,11 +102,9 @@ MENURUN:
 					pipes.back().passed = false;
 				}
 			}	
-	
 			/* If pipes are malfunctioning, exit */
 			if(pipes.size() < 1)
 				break;
-	
 			/* Check If Player Is Hitting Pipe */
 			if(pipes[0].getX() <= player.x && pipes[0].getX() + 4 >= player.x)
 			{
@@ -114,16 +112,15 @@ MENURUN:
 				{
 					score++;
 					pipes[0].passed = true;
+					speed -= 2;
 				}
 				else if(!pipes[0].birdIn(player))
 				{
 					break;
 				}	
-			}
-	
+			}	
 			/* Draw Bird */
 			player.draw();
-	
 			/* Get Next Move */
 			int ch = getch();
 			if(ch == KEY_UP)
