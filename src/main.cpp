@@ -115,13 +115,21 @@ MENURUN:
 				{
 					score++;
 					pipes[0].passed = true;
-					speed -= 4;
+					speed -= score & 2;
 				}
 				else if(!pipes[0].birdIn(player))
 				{
 					break;
 				}	
 			}	
+			if(player.y >= height)
+				break;
+			if(player.y < 0)
+			{
+				player.y = 0;
+				player.dir = 0;
+			}
+
 			/* Draw Bird */
 			player.draw();
 			/* Get Next Move */
