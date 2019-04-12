@@ -61,6 +61,8 @@ void deathScreen(int score, int height, int width)
 			}
 		}
 	}
+	mvprintw(height/2, width/2 -5, "GAME OVER");
+	mvprintw(height/2 + 1, width/2-5, "SCORE: %03d\n", score);
 }
 
 int main()
@@ -115,11 +117,12 @@ MENURUN:
 	/* Game Loop */
 	while(true)
 	{
-		erase();
+		//erase();
 		if(speed <= 0)
 			speed = 0;
 		if(end - start >= speed)
 		{
+			erase();
 			/* Modifify Pipes Appropriately */
 			for(int i = 0; i < pipes.size(); i++)
 			{
