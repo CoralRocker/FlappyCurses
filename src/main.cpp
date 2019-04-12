@@ -34,6 +34,35 @@ signed char getOff(int height)
 	return displacement;
 }	
 
+void deathScreen(int score, int height, int width)
+{
+	for(int i = height/4; i < height/2 + height/4; i++)
+	{
+		for(int k = width/4; k < width/2+width/4; k++)
+		{
+			mvaddch(i, k, ' ');
+			if(i == height/4 || i == height/2 + height/4 - 1)
+				mvaddch(i, k, ACS_HLINE);
+			if(k == width/4 || k == width/2 + width/4 - 1)
+				mvaddch(i, k, ACS_VLINE);
+			if(i == height/4)
+			{
+				if(k == width/4)
+					mvaddch(i, k, ACS_ULCORNER);
+				if(k == width/2+width/4-1)
+					mvaddch(i, k, ACS_URCORNER);
+			}
+			if(i == height/4 + height/2 - 1)
+			{
+				if(k == width/4)
+					mvaddch(i, k, ACS_LLCORNER);
+				if(k == width/2+width/4-1)
+					mvaddch(i, k, ACS_LRCORNER);
+			}
+		}
+	}
+}
+
 int main()
 {
 	/* Initialize Window */
@@ -143,6 +172,11 @@ MENURUN:
 		}
 		end = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
 	}
+	nodelay(stdscr, 0);
+	nocbreak();
+	deathScreen(score, height, width);
+	getch();
+	
 	endwin();
 	printf("You got: %d\n", score);
 }
