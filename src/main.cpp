@@ -47,7 +47,7 @@ int main()
 
 	/* Menu */
 	menu startMenu(stdscr);
-	startMenu.setOpts(3, "Easy", "Medium", "Quit");
+	startMenu.setOpts(4, "Easy", "Medium", "Hard", "Quit");
 MENURUN:
 	char choice = startMenu.runMenu();
 	switch(choice)
@@ -59,6 +59,9 @@ MENURUN:
 			speed = 50;
 			break;
 		case 2:
+			speed = 25;
+			break;
+		case 3:
 			endwin();
 			return -1;
 		default:
@@ -112,13 +115,21 @@ MENURUN:
 				{
 					score++;
 					pipes[0].passed = true;
-					speed -= 2;
+					speed -= score & 2;
 				}
 				else if(!pipes[0].birdIn(player))
 				{
 					break;
 				}	
 			}	
+			if(player.y >= height)
+				break;
+			if(player.y < 0)
+			{
+				player.y = 0;
+				player.dir = 0;
+			}
+
 			/* Draw Bird */
 			player.draw();
 			/* Get Next Move */
