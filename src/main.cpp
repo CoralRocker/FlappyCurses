@@ -62,7 +62,7 @@ void deathScreen(int score, int height, int width)
 		}
 	}
 	mvprintw(height/2, width/2 -5, "GAME OVER");
-	mvprintw(height/2 + 1, width/2-5, "SCORE: %03d\n", score);
+	mvprintw(height/2 + 1, width/2-5, "SCORE: %03d", score);
 }
 
 int main()
