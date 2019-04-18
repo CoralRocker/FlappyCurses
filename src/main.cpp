@@ -27,18 +27,18 @@ WINDOW* initWindow()
 	return stdscr;
 }
 
-signed char getOff(int height)
+signed char getOff(uint8_t height)
 {
 	char displacement;
 	displacement = (rand() % (height/2 + 1)) + height/4;
 	return displacement;
 }	
 
-void deathScreen(int score, int height, int width)
+void deathScreen(uint8_t score, uint8_t height, uint8_t width)
 {
-	for(int i = height/4; i < height/2 + height/4; i++)
+	for(uint8_t i = height/4; i < height/2 + height/4; i++)
 	{
-		for(int k = width/4; k < width/2+width/4; k++)
+		for(uint8_t k = width/4; k < width/2+width/4; k++)
 		{
 			mvaddch(i, k, ' ');
 			if(i == height/4 || i == height/2 + height/4 - 1)
@@ -71,8 +71,8 @@ int main()
 	WINDOW* stdscr = initWindow();
 
 	/* Variables */
-	int score = 0;
-	int height, width;
+	uint8_t score = 0;
+	uint16_t height, width;
 	getmaxyx(stdscr, height, width);
 	unsigned char speed = 0;
 
@@ -104,7 +104,7 @@ MENURUN:
 	/* Player And Pipes */
 	bird player(stdscr, '@', 20);	
 	std::vector<pipe> pipes;
-	for(int i = 0; i < 5; i++)
+	for(uint8_t i = 0; i < 5; i++)
 	{
 		pipes.push_back(pipe(stdscr, width, height));	
 		pipes[i].setPos(width + (45*i), getOff(height), 4);
@@ -124,7 +124,7 @@ MENURUN:
 		{
 			erase();
 			/* Modifify Pipes Appropriately */
-			for(int i = 0; i < pipes.size(); i++)
+			for(uint8_t i = 0; i < pipes.size(); i++)
 			{
 				pipes[i].drawPipe();
 				pipes[i].increment();
@@ -165,7 +165,7 @@ MENURUN:
 			/* Draw Bird */
 			player.draw();
 			/* Get Next Move */
-			int ch = getch();
+			uint16_t ch = getch();
 			if(ch == KEY_UP)
 				player.jump();
 			player.act();

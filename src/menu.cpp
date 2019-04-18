@@ -38,7 +38,7 @@ void menu::setOpts(int numOpts, ...)
 	/* Save strings inputted to the proper place in the option array */
 	va_list valList;	
 	va_start(valList, numOpts);
-	for(int i = 0; i < this->numArgs; i++)
+	for(uint8_t i = 0; i < this->numArgs; i++)
 	{
 		//this->optPtr[i] = (char*)malloc(
 		this->optPtr[i] = va_arg(valList, char*);

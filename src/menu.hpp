@@ -13,7 +13,7 @@ class menu
 	private:
 		char **optPtr, **argPtr;
 		bool optPtrUsed, argPtrUsed;
-		int numArgs, numOpts, option, h, w;
+		uint8_t numArgs, numOpts, option, h, w;
 		bool addOpts;
 		WINDOW *win;
 };

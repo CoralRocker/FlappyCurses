@@ -15,6 +15,7 @@ bird::bird(WINDOW* win, char symbol, int x)
 void bird::draw()
 {
 	mvwaddch(this->win, this->y, this->x, this->symbol);
+	mvwaddstr(this->win, this->y+1, this->x-1, "##");
 }
 
 void bird::act()

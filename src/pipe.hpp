@@ -15,7 +15,7 @@ class pipe
 		int getX();
 		bool passed;
 	private:
-		int x, y, size, width, height;
+		uint16_t x, y, size, width, height;
 		WINDOW* win;
 
 };
